@@ -1,0 +1,122 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="estilosform.css">
+    <script defer src="codigo.js"></script>
+
+    <script>
+
+        function cambiarcolor(control){
+          xlongitud=document.getElementById(control).value.length;
+          if(xlongitud>0){
+            document.getElementById(control).style.backgroundColor = '#CDFFE6';
+          }else{
+            document.getElementById(control).style.backgroundColor = 'white';
+          }
+            }
+    
+                 //función que valida el ingreso de solo letras
+        function sololetras(evt){
+                 // code is the decimal ASCII representation of the pressed key.
+                 var code = (evt.which) ? evt.which : evt.keyCode;
+           if(code==8) { //barra espaciadora
+                    return true;
+           }else if(code==32 || code>=65 && code<=90 || code>=97 && code<=122 ) { // son letras de a-z, A-Z
+                    return true;
+                 } else{ //otra tecla
+                    return false;
+                 }
+              }
+    
+        function onlynumber(evt,control,cantidad){
+    
+          xlongitud=document.getElementById(control).value.length; 
+                // code is the decimal ASCII representation of the pressed key.
+                var code = (evt.which) ? evt.which : evt.keyCode;
+          //const x=5;
+          //(x=1) ? alert("corecto"):alert("Incorecto");
+                if((code>=48 && code<=57) && xlongitud<cantidad) { // es un número
+                  return true;
+                } else{ // otra tecla
+                  return false;
+                } 
+        }
+    
+        //Seteamos el input date para que solo puedan ingresar la fecha de registro hasta el dia actual.
+    
+        function maxdate(){
+          var date = new Date();
+            var tdate= date.getDate();
+            var tdate= date.getDate();
+            var month= date.getMonth()+1;
+    
+            if (month < 10) {
+                month = "0" + month;
+            }
+            if (tdate < 10) {
+                tdate = "0" + tdate;
+            }
+            var year=date.getFullYear();
+            var maxDate= year + "-" + month + "-" + tdate;
+            document.getElementById("demo").setAttribute('max',maxDate);
+            console.log(maxDate);
+        
+    
+        }
+
+    </script>
+
+</head>
+<body>
+    </header>
+    <div class="container">
+        <form id="form" action="/">
+            <h1>Registrate</h1>
+            <div class="input-control">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" oninput="cambiarcolor('username')" onkeypress="return sololetras(event);">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="text" oninput="cambiarcolor('email')">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="numero">Celular</label>
+                <input id="numero" name="numero" type="tel" oninput="cambiarcolor('numero')" onkeypress="return onlynumber(event,'numero',9);">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="password">Password</label>
+                <input id="password"name="password" type="password"  oninput="cambiarcolor('password')"">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="password2">Password again</label>
+                <input id="password2"name="password2" type="password"  oninput="cambiarcolor('password2')"">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <div class="error"></div>
+            </div>
+            
+            <button type="submit"> Enviar </button>
+        </form>
+    </div>
+</body>
+</html>
